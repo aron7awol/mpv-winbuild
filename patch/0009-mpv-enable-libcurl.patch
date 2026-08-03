@@ -1,7 +1,7 @@
-From 7bb1dd5e988e1d57d948ea3a9838f676cbb66e41 Mon Sep 17 00:00:00 2001
-From: zhongfly <11155705+zhongfly@users.noreply.github.com>
-Date: Wed, 13 May 2026 21:46:55 +0800
-Subject: mpv: enable libcurl
+From f75fe2c856f837a82da71cd3c9dcb0ac5a481017 Mon Sep 17 00:00:00 2001
+From: Aaron <aaronmedeiros@gmail.com>
+Date: Sun, 2 Aug 2026 20:21:41 -0400
+Subject: [PATCH] mpv: enable libcurl
 
 ---
  packages/CMakeLists.txt | 2 +-
@@ -9,10 +9,10 @@ Subject: mpv: enable libcurl
  2 files changed, 3 insertions(+), 1 deletion(-)
 
 diff --git a/packages/CMakeLists.txt b/packages/CMakeLists.txt
-index 71816f0..1e47200 100644
+index 6b47f05..e34decc 100644
 --- a/packages/CMakeLists.txt
 +++ b/packages/CMakeLists.txt
-@@ -124,7 +124,7 @@ list(LENGTH ep ep_length)
+@@ -123,7 +123,7 @@ list(LENGTH ep ep_length)
  message(STATUS "Parsing ${ep_length} packages")
  
  # Exclude packages which dont depend on mpv when update
@@ -22,7 +22,7 @@ index 71816f0..1e47200 100644
  list(REMOVE_ITEM ep ${removed})
  list(TRANSFORM repo APPEND "-force-update" OUTPUT_VARIABLE update)
 diff --git a/packages/mpv.cmake b/packages/mpv.cmake
-index d88a06f..a2954d5 100644
+index fe4aaeb..c5bcfe0 100644
 --- a/packages/mpv.cmake
 +++ b/packages/mpv.cmake
 @@ -24,6 +24,7 @@ ExternalProject_Add(mpv
@@ -31,9 +31,9 @@ index d88a06f..a2954d5 100644
          libsixel
 +        curl
      GIT_REPOSITORY https://github.com/mpv-player/mpv.git
+     GIT_TAG 74356c0fc669d21af9daac5a11f296123efd0684
      SOURCE_DIR ${SOURCE_LOCATION}
-     GIT_CLONE_FLAGS "--filter=tree:0"
-@@ -57,6 +58,7 @@ ExternalProject_Add(mpv
+@@ -61,6 +62,7 @@ ExternalProject_Add(mpv
          -Dsubrandr=enabled
          -Dsixel=enabled
          ${mpv_gl}
@@ -42,5 +42,5 @@ index d88a06f..a2954d5 100644
      BUILD_COMMAND ${EXEC} LTO_JOB=1 PDB=1 ninja -C <BINARY_DIR>
      INSTALL_COMMAND ""
 -- 
-2.52.0.windows.1
+2.54.0.windows.1
 
