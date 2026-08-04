@@ -5,8 +5,8 @@ Subject: libpsl: add libpsl
 
 ---
  packages/CMakeLists.txt |  1 +
- packages/libpsl.cmake   | 24 ++++++++++++++++++++++++
- 2 files changed, 25 insertions(+)
+ packages/libpsl.cmake   | 25 +++++++++++++++++++++++++
+ 2 files changed, 26 insertions(+)
  create mode 100644 packages/libpsl.cmake
 
 diff --git a/packages/CMakeLists.txt b/packages/CMakeLists.txt
@@ -26,9 +26,10 @@ new file mode 100644
 index 0000000..f9e0089
 --- /dev/null
 +++ b/packages/libpsl.cmake
-@@ -0,0 +1,24 @@
+@@ -0,0 +1,25 @@
 +ExternalProject_Add(libpsl
 +    GIT_REPOSITORY https://github.com/rockdaboot/libpsl.git
++    GIT_TAG aa3a80e18f25caf3916636c8668dcc0fff7c016d
 +    SOURCE_DIR ${SOURCE_LOCATION}
 +    GIT_CLONE_FLAGS "--depth=1 --sparse --filter=tree:0"
 +    GIT_CLONE_POST_COMMAND "sparse-checkout set --no-cone /* !/fuzz !tests !tools tools/meson.build"
