@@ -310,8 +310,9 @@ jobs:
             64|64-v3) arch=x86_64 ;;
             aarch64) arch=aarch64 ;;
           esac
-          clang_root="${{ github.workspace }}/mpv-winbuild-cmake/clang_root"
-          sysroot="${{ github.workspace }}/mpv-winbuild-cmake/build${{ matrix.bit }}/install/${arch}-w64-mingw32"
+          buildroot="$(pwd)/mpv-winbuild-cmake"
+          clang_root="$buildroot/clang_root"
+          sysroot="$buildroot/build${{ matrix.bit }}/install/${arch}-w64-mingw32"
           if [ ! "$(ls -A "$clang_root/bin/clang" 2>/dev/null)" ]; then
             echo "::error::The Clang cache was not restored. Re-run with needclean=false after restoring a known-good Clang cache."
             exit 1
@@ -365,7 +366,6 @@ jobs:
       - name: Running custom command
         if: ${{ inputs.command != '' }}
         shell: bash
-        continue-on-error: true
         run: |
           cd mpv-winbuild-cmake
           bit="${{ matrix.bit }}"
