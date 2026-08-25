@@ -312,7 +312,7 @@ jobs:
           esac
           clang_root="${{ github.workspace }}/mpv-winbuild-cmake/clang_root"
           sysroot="${{ github.workspace }}/mpv-winbuild-cmake/build${{ matrix.bit }}/install/${arch}-w64-mingw32"
-          if [ ! -x "$clang_root/bin/clang" ]; then
+          if [ ! "$(ls -A "$clang_root/bin/clang" 2>/dev/null)" ]; then
             echo "::error::The Clang cache was not restored. Re-run with needclean=false after restoring a known-good Clang cache."
             exit 1
           fi
