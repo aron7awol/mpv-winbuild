@@ -34,7 +34,7 @@ on:
         - gcc
         - clang
       needclean:
-        description: 'Build without cache'
+        description: 'Build without cache (GCC only; use mpv-fullclean for Clang)'
         required: false
         default: false
         type: boolean
@@ -67,6 +67,11 @@ jobs:
       matrix_bit: ${{ steps.script.outputs.matrix_bit }}
       patch_note: ${{ steps.script.outputs.patch_note }}
     steps:
+      - name: Validate build request
+        if: ${{ inputs.compiler == 'clang' && inputs.needclean }}
+        run: |
+          echo "::error::Clang needclean builds discard the cached Windows sysroot. Keep needclean=false and use the custom command 'ninja -C build64 mpv-fullclean' to rebuild only mpv."
+          exit 1
       - id: script
         uses: actions/github-script@v9
         with:
@@ -174,7 +179,6 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: ghcr.io/archlinux/archlinux:base-devel
-    continue-on-error: true
     strategy:
       matrix: ${{ fromJson(needs.params.outputs.matrix) }}
 
@@ -297,6 +301,26 @@ jobs:
           path: ${{ github.workspace }}/mpv-winbuild-cmake/build${{ matrix.bit }}
           key: ${{ env.build_restore_key }}
 
+      - name: Validate Clang build cache
+        if: ${{ inputs.compiler == 'clang' }}
+        shell: bash
+        run: |
+          case "${{ matrix.bit }}" in
+            32) arch=i686 ;;
+            64|64-v3) arch=x86_64 ;;
+            aarch64) arch=aarch64 ;;
+          esac
+          clang_root="${{ github.workspace }}/mpv-winbuild-cmake/clang_root"
+          sysroot="${{ github.workspace }}/mpv-winbuild-cmake/build${{ matrix.bit }}/install/${arch}-w64-mingw32"
+          if [ ! -x "$clang_root/bin/clang" ]; then
+            echo "::error::The Clang cache was not restored. Re-run with needclean=false after restoring a known-good Clang cache."
+            exit 1
+          fi
+          if [ ! -f "$sysroot/lib/libkernel32.a" ]; then
+            echo "::error::The complete Windows dependency/sysroot cache was not restored ($sysroot/lib/libkernel32.a is missing). Do not use needclean=true for Clang; use mpv-fullclean."
+            exit 1
+          fi
+
       - name: Set up ccache
         uses: Chocobo1/setup-ccache-action@v1
         with:
@@ -385,7 +409,10 @@ jobs:
           cd mpv-winbuild-cmake
           if [[ "$(ls -A ../patch/*.patch)" ]]; then
             for patch in ../patch/*.patch ; do
-              git am --3way "$patch" || git am --abort
+              if ! git am --3way "$patch"; then
+                git am --abort
+                exit 1
+              fi
             done
           fi
           if [ "${{ matrix.lgpl }}" = "true" ]; then

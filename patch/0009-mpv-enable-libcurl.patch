@@ -1,6 +1,6 @@
-From f75fe2c856f837a82da71cd3c9dcb0ac5a481017 Mon Sep 17 00:00:00 2001
+From 2b4fb048a5140b55f8b6ca37674adf14d94f2c8b Mon Sep 17 00:00:00 2001
 From: Aaron <aaronmedeiros@gmail.com>
-Date: Sun, 2 Aug 2026 20:21:41 -0400
+Date: Tue, 25 Aug 2026 18:38:31 -0400
 Subject: [PATCH] mpv: enable libcurl
 
 ---
@@ -22,24 +22,25 @@ index 6b47f05..e34decc 100644
  list(REMOVE_ITEM ep ${removed})
  list(TRANSFORM repo APPEND "-force-update" OUTPUT_VARIABLE update)
 diff --git a/packages/mpv.cmake b/packages/mpv.cmake
-index fe4aaeb..c5bcfe0 100644
+index 9a5d802..78ed67f 100644
 --- a/packages/mpv.cmake
 +++ b/packages/mpv.cmake
-@@ -24,6 +24,7 @@ ExternalProject_Add(mpv
+@@ -34,6 +34,7 @@ ExternalProject_Add(mpv
          libsdl2
          subrandr
          libsixel
 +        curl
      GIT_REPOSITORY https://github.com/mpv-player/mpv.git
-     GIT_TAG 74356c0fc669d21af9daac5a11f296123efd0684
+     GIT_TAG 654e9382c0bbccb09ccac348f792e9d378e9c7a9
      SOURCE_DIR ${SOURCE_LOCATION}
-@@ -61,6 +62,7 @@ ExternalProject_Add(mpv
+@@ -75,6 +76,7 @@ ExternalProject_Add(mpv
          -Dsubrandr=enabled
          -Dsixel=enabled
          ${mpv_gl}
 +        -Dlibcurl=enabled
          -Dc_args='-Wno-error=int-conversion'
-     BUILD_COMMAND ${EXEC} LTO_JOB=1 PDB=1 ninja -C <BINARY_DIR>
+     # The packaged debug artifact only needs mpv.pdb. Link the much larger
+     # libmpv DLL without a PDB first, then generate the player PDB separately.
      INSTALL_COMMAND ""
 -- 
 2.54.0.windows.1

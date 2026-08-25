@@ -66,7 +66,7 @@ build() {
 
     if [ "$compiler" == "gcc" ] && [ ! -f "$buildroot/build$bit/install/bin/cross-gcc" ]; then
         ninja -C $buildroot/build$bit gcc && rm -rf $buildroot/build$bit/toolchain
-    elif [ "$compiler" == "clang" ] && { [ ! -x "$clang_root/bin/clang" ] || [ ! -f "$buildroot/build$bit/install/$arch-w64-mingw32/lib/libkernel32.a" ]; }; then
+    elif [ "$compiler" == "clang" ] && [ ! "$(ls -A $clang_root/bin/clang)" ]; then
         ninja -C $buildroot/build$bit llvm && ninja -C $buildroot/build$bit llvm-clang
     fi
 
