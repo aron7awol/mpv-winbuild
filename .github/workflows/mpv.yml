@@ -201,6 +201,7 @@ jobs:
         uses: actions/checkout@v7
         with:
           repository: aron7awol/mpv-winbuild-cmake
+          ref: 91456b5ed4cad7e4e00621e977d9276923e24ca9
           path: mpv-winbuild-cmake
           fetch-depth: 0
       - name: Prepare
