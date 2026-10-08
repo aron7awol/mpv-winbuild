@@ -1,0 +1,36 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: mpv-ht <mpv-ht@users.noreply.github.com>
+Date: Wed, 7 Oct 2026 22:45:00 -0400
+Subject: [PATCH] curl: retain revision compatible with the pinned OpenSSL
+
+Use the curl revision from successful release-engine run 36884907351.
+Newer curl assumes ASN1_STRING_get_length exists for all OpenSSL 4.1 builds,
+but the existing pinned development revision predates that function.
+Keep the tested dependency pair instead of updating the TLS library for an
+unrelated PCM feature. Use the existing GIT_RESET mechanism so cached source
+checkouts are also reset to this revision by the update target.
+---
+ packages/curl.cmake | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/packages/curl.cmake b/packages/curl.cmake
+--- a/packages/curl.cmake
++++ b/packages/curl.cmake
+@@ -13,10 +13,14 @@ ExternalProject_Add(curl
+     GIT_REPOSITORY https://github.com/curl/curl.git
+     SOURCE_DIR ${SOURCE_LOCATION}
+     GIT_CLONE_FLAGS "--filter=tree:0"
++    GIT_REMOTE_NAME origin
++    GIT_TAG master
++    GIT_RESET d4dc7d16c40a0d9e70f7858e645c7ab3997a38b0
+     GIT_CLONE_POST_COMMAND "sparse-checkout set --no-cone /* !tests !docs"
+     PATCH_COMMAND ""
+     UPDATE_COMMAND ""
+-    CONFIGURE_COMMAND ${EXEC} ${CMAKE_COMMAND} -H<SOURCE_DIR> -B<BINARY_DIR>
++    CONFIGURE_COMMAND ${EXEC} bash -c "test \"$(git -C <SOURCE_DIR> rev-parse HEAD)\" = d4dc7d16c40a0d9e70f7858e645c7ab3997a38b0 && echo 'mpv-ht curl revision d4dc7d16c40a0d9e70f7858e645c7ab3997a38b0'"
++    COMMAND ${EXEC} ${CMAKE_COMMAND} -H<SOURCE_DIR> -B<BINARY_DIR>
+         -G Ninja
+         -DCMAKE_BUILD_TYPE=Release
+         -DCMAKE_TOOLCHAIN_FILE=${TOOLCHAIN_FILE}
+-- 
+2.52.0
