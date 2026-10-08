@@ -1,0 +1,27 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: mpv-ht <mpv-ht@users.noreply.github.com>
+Date: Wed, 7 Oct 2026 23:25:00 -0400
+Subject: [PATCH] libaribcaption: compile its namespaced MD5 implementation
+
+Upstream 6c3b4f3 renamed its MD5 functions to aribcc_md5_* and removed the
+OpenSSL substitution from md5.h. The old HAVE_OPENSSL override still excludes
+md5.c, leaving the three new functions undefined when linking libmpv.
+Stop defining that legacy override so the bundled implementation is compiled.
+---
+ packages/libaribcaption.cmake | 2 --
+ 1 file changed, 2 deletions(-)
+
+diff --git a/packages/libaribcaption.cmake b/packages/libaribcaption.cmake
+--- a/packages/libaribcaption.cmake
++++ b/packages/libaribcaption.cmake
+@@ -20,8 +20,6 @@ ExternalProject_Add(libaribcaption
+         -DARIBCC_NO_RTTI=ON
+         -DARIBCC_USE_FONTCONFIG=ON
+         -DARIBCC_USE_FREETYPE=ON
+-        "-DCMAKE_C_FLAGS='-DHAVE_OPENSSL=1'"
+-        "-DCMAKE_CXX_FLAGS='-DHAVE_OPENSSL=1'"
+     BUILD_COMMAND ${EXEC} ninja -C <BINARY_DIR>
+     INSTALL_COMMAND ${EXEC} ninja -C <BINARY_DIR> install
+     LOG_DOWNLOAD 1 LOG_UPDATE 1 LOG_CONFIGURE 1 LOG_BUILD 1 LOG_INSTALL 1
+-- 
+2.52.0
