@@ -10,8 +10,9 @@ Keep the tested dependency pair instead of updating the TLS library for an
 unrelated PCM feature. Use the existing GIT_RESET mechanism so cached source
 checkouts are also reset to this revision by the update target.
 ---
- packages/curl.cmake | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ packages/curl.cmake                |  6 +++++-
+ packages/curl-revision-guard.cmake | 12 ++++++++++++
+ 2 files changed, 17 insertions(+), 1 deletion(-)
 
 diff --git a/packages/curl.cmake b/packages/curl.cmake
 --- a/packages/curl.cmake
@@ -27,10 +28,27 @@ diff --git a/packages/curl.cmake b/packages/curl.cmake
      PATCH_COMMAND ""
      UPDATE_COMMAND ""
 -    CONFIGURE_COMMAND ${EXEC} ${CMAKE_COMMAND} -H<SOURCE_DIR> -B<BINARY_DIR>
-+    CONFIGURE_COMMAND ${EXEC} bash -c "test \"$(git -C <SOURCE_DIR> rev-parse HEAD)\" = d4dc7d16c40a0d9e70f7858e645c7ab3997a38b0 && echo 'mpv-ht curl revision d4dc7d16c40a0d9e70f7858e645c7ab3997a38b0'"
++    CONFIGURE_COMMAND ${CMAKE_COMMAND} -DMPV_HT_CURL_SOURCE=<SOURCE_DIR> -P ${CMAKE_CURRENT_SOURCE_DIR}/curl-revision-guard.cmake
 +    COMMAND ${EXEC} ${CMAKE_COMMAND} -H<SOURCE_DIR> -B<BINARY_DIR>
          -G Ninja
          -DCMAKE_BUILD_TYPE=Release
          -DCMAKE_TOOLCHAIN_FILE=${TOOLCHAIN_FILE}
+diff --git a/packages/curl-revision-guard.cmake b/packages/curl-revision-guard.cmake
+new file mode 100644
+--- /dev/null
++++ b/packages/curl-revision-guard.cmake
+@@ -0,0 +1,12 @@
++find_program(MPV_HT_GIT git REQUIRED)
++execute_process(
++    COMMAND "${MPV_HT_GIT}" -C "${MPV_HT_CURL_SOURCE}" rev-parse HEAD
++    OUTPUT_VARIABLE mpv_ht_curl_revision
++    OUTPUT_STRIP_TRAILING_WHITESPACE
++    RESULT_VARIABLE mpv_ht_git_result
++)
++if(NOT mpv_ht_git_result EQUAL 0 OR NOT mpv_ht_curl_revision STREQUAL
++        "d4dc7d16c40a0d9e70f7858e645c7ab3997a38b0")
++    message(FATAL_ERROR "Unexpected curl source revision: ${mpv_ht_curl_revision}")
++endif()
++message(STATUS "mpv-ht curl revision ${mpv_ht_curl_revision}")
 -- 
 2.52.0
