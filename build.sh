@@ -74,7 +74,7 @@ build() {
         ninja -C $buildroot/build$bit rustup-fullclean
         ninja -C $buildroot/build$bit rustup
     fi
-    ninja -C $buildroot/build$bit update
+    ninja -C $buildroot/build$bit update || exit 1
     ninja -C $buildroot/build$bit mpv-fullclean
     
     ninja -C $buildroot/build$bit mpv

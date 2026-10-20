@@ -243,7 +243,7 @@ jobs:
         uses: actions/checkout@v7
         with:
           repository: aron7awol/mpv-winbuild-cmake
-          ref: 754b50267f5635914d4b464ceae03d4df9536170
+          ref: f8a04a85c918f8349365dfbff09a1a86e7284b47
           path: mpv-winbuild-cmake
           fetch-depth: 0
       - name: Prepare
@@ -462,6 +462,18 @@ jobs:
             git am --3way ../compile-lgpl-libmpv.patch
           fi
           bash ../build.sh -t '${{ matrix.bit }}' -c '${{ inputs.compiler }}' -s "${{ matrix.lgpl == true && 'true' || 'false' }}"
+      - name: Verify locked dependency source revisions
+        run: |
+          python scripts/verify-dependency-build.py \
+            mpv-winbuild-cmake/build${{ matrix.bit }}/dependency-inputs.tsv \
+            mpv-winbuild-cmake/cmake/dependency-baseline.json \
+            dependency-build-${{ matrix.bit }}.json
+      - name: Upload effective dependency source revisions
+        uses: actions/upload-artifact@v7
+        with:
+          name: dependency-build-${{ matrix.bit }}
+          path: dependency-build-${{ matrix.bit }}.json
+          if-no-files-found: error
       - name: Collect logs
         if: ${{ always() }}
         run: |
