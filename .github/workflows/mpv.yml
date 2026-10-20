@@ -473,12 +473,21 @@ jobs:
           python scripts/verify-dependency-build.py \
             mpv-winbuild-cmake/build${{ matrix.bit }}/dependency-inputs.tsv \
             mpv-winbuild-cmake/cmake/dependency-baseline.json \
-            dependency-build-${{ matrix.bit }}.json
+            dependency-build-${{ matrix.bit }}.json \
+            scripts/dependency-source-baseline.json
       - name: Upload effective dependency source revisions
+        if: ${{ always() && hashFiles(format('dependency-build-{0}.json', matrix.bit)) != '' }}
         uses: actions/upload-artifact@v7
         with:
           name: dependency-build-${{ matrix.bit }}
           path: dependency-build-${{ matrix.bit }}.json
+          if-no-files-found: error
+      - name: Upload pre-build source-data evidence
+        if: ${{ always() && hashFiles(format('mpv-winbuild-cmake/build{0}/dependency-source-data.json', matrix.bit)) != '' }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: dependency-source-data-${{ matrix.bit }}
+          path: mpv-winbuild-cmake/build${{ matrix.bit }}/dependency-source-data.json
           if-no-files-found: error
       - name: Collect logs
         if: ${{ always() }}

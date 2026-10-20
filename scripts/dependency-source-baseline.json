@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "baseline_run": 38436222182,
+  "source_cache": "source-2026-09-09-34393354351-1",
+  "evidence_run": 39461263803,
+  "evidence_artifact": 12282268175,
+  "evidence_sha256": "148de9bf4034a3807d19a79cf36ccaeb8917d4cb17f13f6d1930d6f8373fbad0",
+  "reason": "The exact .72 input cache already used this clean libpsl/list revision. .72 skipped cloning and performed no recursive submodule update. Preserve this effective data input rather than changing it to the parent gitlink or ignoring submodule drift.",
+  "submodules": [
+    {
+      "package": "libpsl",
+      "parent_base": "aa3a80e18f25caf3916636c8668dcc0fff7c016d",
+      "parent_tree": "4d719389ad3126fb1a4986255b1398beb7490af6",
+      "path": "list",
+      "gitlink": "e1b8015c3b2f0f4f8c18659c2480fc1a22c07b20",
+      "head": "b9a86cf0cd115f1e60b5815533f3fcfd2f9e8f4b",
+      "tree": "fe6aa1a4386fe036dcf44bca4ea109b676b57b4e"
+    }
+  ]
+}
