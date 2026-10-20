@@ -1,0 +1,505 @@
+{
+  "previousRun": 38436222182,
+  "sourceCache": "source-2026-09-09-34393354351-1",
+  "previousLogSha256": "3821ab3adf3c0bd3bc292a2d027678c930110d0f999af83c153237f550ed5e0c",
+  "packages": [
+    {
+      "name": "rubberband",
+      "repository": "https://github.com/breakfastquay/rubberband.git",
+      "policy": "floating-ref-or-tag",
+      "previous": null
+    },
+    {
+      "name": "libsamplerate",
+      "repository": "https://github.com/libsndfile/libsamplerate.git",
+      "policy": "default-tracking-branch",
+      "previous": null
+    },
+    {
+      "name": "xz",
+      "repository": "https://github.com/tukaani-project/xz.git",
+      "policy": "explicit-pin",
+      "previous": "3d078b52adbff566ccfc51067dfbf742ecf3ef86"
+    },
+    {
+      "name": "bzip2",
+      "repository": "https://gitlab.com/bzip2/bzip2.git",
+      "policy": "default-tracking-branch",
+      "previous": null
+    },
+    {
+      "name": "uchardet",
+      "repository": "https://gitlab.freedesktop.org/uchardet/uchardet.git",
+      "policy": "default-tracking-branch",
+      "previous": null
+    },
+    {
+      "name": "zlib",
+      "repository": "https://github.com/zlib-ng/zlib-ng.git",
+      "policy": "floating-ref-or-tag",
+      "previous": "1ab945a"
+    },
+    {
+      "name": "zstd",
+      "repository": "https://github.com/facebook/zstd.git",
+      "policy": "floating-ref-or-tag",
+      "previous": "49cf517"
+    },
+    {
+      "name": "ogg",
+      "repository": "https://github.com/xiph/ogg.git",
+      "policy": "default-tracking-branch",
+      "previous": null
+    },
+    {
+      "name": "lame",
+      "repository": "https://gitlab.com/shinchiro/lame.git",
+      "policy": "default-tracking-branch",
+      "previous": null
+    },
+    {
+      "name": "libjpeg",
+      "repository": "https://github.com/libjpeg-turbo/libjpeg-turbo.git",
+      "policy": "floating-ref-or-tag",
+      "previous": "43ea809"
+    },
+    {
+      "name": "vorbis",
+      "repository": "https://github.com/xiph/vorbis.git",
+      "policy": "default-tracking-branch",
+      "previous": null
+    },
+    {
+      "name": "lcms2",
+      "repository": "https://github.com/mm2/Little-CMS.git",
+      "policy": "default-tracking-branch",
+      "previous": "15c24e7"
+    },
+    {
+      "name": "libmodplug",
+      "repository": "https://github.com/Konstanty/libmodplug.git",
+      "policy": "default-tracking-branch",
+      "previous": null
+    },
+    {
+      "name": "speex",
+      "repository": "https://github.com/xiph/speex.git",
+      "policy": "default-tracking-branch",
+      "previous": "f461ff4"
+    },
+    {
+      "name": "game-music-emu",
+      "repository": "https://bitbucket.org/mpyne/game-music-emu.git",
+      "policy": "default-tracking-branch",
+      "previous": null
+    },
+    {
+      "name": "opus",
+      "repository": "https://github.com/xiph/opus.git",
+      "policy": "floating-ref-or-tag",
+      "previous": "503d81b"
+    },
+    {
+      "name": "x264",
+      "repository": "https://code.videolan.org/videolan/x264.git",
+      "policy": "default-tracking-branch",
+      "previous": null
+    },
+    {
+      "name": "libpng",
+      "repository": "https://github.com/glennrp/libpng.git",
+      "policy": "default-tracking-branch",
+      "previous": "33d0150"
+    },
+    {
+      "name": "libdvdcss",
+      "repository": "https://code.videolan.org/videolan/libdvdcss.git",
+      "policy": "default-tracking-branch",
+      "previous": null
+    },
+    {
+      "name": "libdvdread",
+      "repository": "https://code.videolan.org/videolan/libdvdread.git",
+      "policy": "default-tracking-branch",
+      "previous": null
+    },
+    {
+      "name": "libdvdnav",
+      "repository": "https://code.videolan.org/videolan/libdvdnav.git",
+      "policy": "default-tracking-branch",
+      "previous": null
+    },
+    {
+      "name": "x265",
+      "repository": "https://github.com/Multicorewareinc/x265.git",
+      "policy": "default-tracking-branch",
+      "previous": "87f5f70"
+    },
+    {
+      "name": "libvpx",
+      "repository": "https://chromium.googlesource.com/webm/libvpx.git",
+      "policy": "floating-ref-or-tag",
+      "previous": "6a891739"
+    },
+    {
+      "name": "libudfread",
+      "repository": "https://code.videolan.org/videolan/libudfread.git",
+      "policy": "default-tracking-branch",
+      "previous": null
+    },
+    {
+      "name": "fribidi",
+      "repository": "https://github.com/fribidi/fribidi.git",
+      "policy": "default-tracking-branch",
+      "previous": "24f15ee"
+    },
+    {
+      "name": "luajit",
+      "repository": "https://github.com/openresty/luajit2.git",
+      "policy": "floating-ref-or-tag",
+      "previous": "f75bf45"
+    },
+    {
+      "name": "brotli",
+      "repository": "https://github.com/google/brotli.git",
+      "policy": "default-tracking-branch",
+      "previous": "86ee1f6"
+    },
+    {
+      "name": "libxml2",
+      "repository": "https://github.com/GNOME/libxml2.git",
+      "policy": "default-tracking-branch",
+      "previous": "c43dc98"
+    },
+    {
+      "name": "graphengine",
+      "repository": "https://github.com/sekrit-twc/graphengine.git",
+      "policy": "default-tracking-branch",
+      "previous": null
+    },
+    {
+      "name": "freetype2",
+      "repository": "https://github.com/freetype/freetype.git",
+      "policy": "default-tracking-branch",
+      "previous": "88f8b33"
+    },
+    {
+      "name": "libsoxr",
+      "repository": "https://gitlab.com/shinchiro/soxr.git",
+      "policy": "default-tracking-branch",
+      "previous": null
+    },
+    {
+      "name": "libzimg",
+      "repository": "https://github.com/sekrit-twc/zimg.git",
+      "policy": "default-tracking-branch",
+      "previous": null
+    },
+    {
+      "name": "libunibreak",
+      "repository": "https://github.com/adah1972/libunibreak.git",
+      "policy": "default-tracking-branch",
+      "previous": "f8172fe"
+    },
+    {
+      "name": "harfbuzz",
+      "repository": "https://github.com/harfbuzz/harfbuzz.git",
+      "policy": "floating-ref-or-tag",
+      "previous": "fed245b6"
+    },
+    {
+      "name": "subrandr",
+      "repository": "https://github.com/afishhh/subrandr.git",
+      "policy": "floating-ref-or-tag",
+      "previous": "efb9546"
+    },
+    {
+      "name": "libass",
+      "repository": "https://github.com/libass/libass.git",
+      "policy": "default-tracking-branch",
+      "previous": "f61db56"
+    },
+    {
+      "name": "libvpl",
+      "repository": "https://github.com/intel/libvpl.git",
+      "policy": "floating-ref-or-tag",
+      "previous": null
+    },
+    {
+      "name": "avisynth-headers",
+      "repository": "https://github.com/AviSynth/AviSynthPlus.git",
+      "policy": "explicit-pin",
+      "previous": "21fdc997f9724b994896ba5520ddf64d677976b3"
+    },
+    {
+      "name": "libmysofa",
+      "repository": "https://github.com/hoene/libmysofa.git",
+      "policy": "floating-ref-or-tag",
+      "previous": null
+    },
+    {
+      "name": "libbluray",
+      "repository": "https://code.videolan.org/videolan/libbluray.git",
+      "policy": "default-tracking-branch",
+      "previous": "448f896"
+    },
+    {
+      "name": "amf-headers",
+      "repository": "https://github.com/GPUOpen-LibrariesAndSDKs/AMF.git",
+      "policy": "default-tracking-branch",
+      "previous": "8c64800"
+    },
+    {
+      "name": "nvcodec-headers",
+      "repository": "https://github.com/FFmpeg/nv-codec-headers.git",
+      "policy": "default-tracking-branch",
+      "previous": null
+    },
+    {
+      "name": "xxhash",
+      "repository": "https://github.com/Cyan4973/xxHash.git",
+      "policy": "floating-ref-or-tag",
+      "previous": "680bf46"
+    },
+    {
+      "name": "vapoursynth",
+      "repository": "https://github.com/vapoursynth/vapoursynth.git",
+      "policy": "explicit-pin",
+      "previous": "e46204429041e95a881b61eedddd46c08f9a307c"
+    },
+    {
+      "name": "libbs2b",
+      "repository": "https://github.com/alexmarsev/libbs2b.git",
+      "policy": "default-tracking-branch",
+      "previous": null
+    },
+    {
+      "name": "fontconfig",
+      "repository": "https://gitlab.freedesktop.org/fontconfig/fontconfig.git",
+      "policy": "floating-ref-or-tag",
+      "previous": "129ddf3"
+    },
+    {
+      "name": "libwebp",
+      "repository": "https://chromium.googlesource.com/webm/libwebp.git",
+      "policy": "floating-ref-or-tag",
+      "previous": "abd0127"
+    },
+    {
+      "name": "aom",
+      "repository": "https://aomedia.googlesource.com/aom",
+      "policy": "floating-ref-or-tag",
+      "previous": "f931b30a"
+    },
+    {
+      "name": "libssh",
+      "repository": "https://gitlab.com/libssh/libssh-mirror.git",
+      "policy": "explicit-pin",
+      "previous": "301d0e16dfa8a5cac1cff956b6880ca90eb82864"
+    },
+    {
+      "name": "uavs3d",
+      "repository": "https://github.com/uavs3/uavs3d.git",
+      "policy": "default-tracking-branch",
+      "previous": null
+    },
+    {
+      "name": "dav1d",
+      "repository": "https://code.videolan.org/videolan/dav1d.git",
+      "policy": "default-tracking-branch",
+      "previous": "99f3354"
+    },
+    {
+      "name": "davs2",
+      "repository": "https://github.com/saindriches/davs2.git",
+      "policy": "default-tracking-branch",
+      "previous": null
+    },
+    {
+      "name": "openssl",
+      "repository": "https://github.com/openssl/openssl.git",
+      "policy": "explicit-pin",
+      "previous": "d8bf6cdd4849925c30e4f1911c7acb49cb34b702"
+    },
+    {
+      "name": "libjxl",
+      "repository": "https://github.com/libjxl/libjxl.git",
+      "policy": "floating-ref-or-tag",
+      "previous": "ef67fde"
+    },
+    {
+      "name": "angle-headers",
+      "repository": "https://github.com/google/angle.git",
+      "policy": "explicit-pin",
+      "previous": "0cb8023c01f92b29f3738ea7472d06f8f059ed84"
+    },
+    {
+      "name": "libarchive",
+      "repository": "https://github.com/libarchive/libarchive.git",
+      "policy": "default-tracking-branch",
+      "previous": "faedff0"
+    },
+    {
+      "name": "highway",
+      "repository": "https://github.com/google/highway.git",
+      "policy": "default-tracking-branch",
+      "previous": "8d07f07"
+    },
+    {
+      "name": "spirv-headers",
+      "repository": "https://github.com/KhronosGroup/SPIRV-Headers.git",
+      "policy": "floating-ref-or-tag",
+      "previous": "86f980c"
+    },
+    {
+      "name": "glslang",
+      "repository": "https://github.com/KhronosGroup/glslang.git",
+      "policy": "floating-ref-or-tag",
+      "previous": "2fbed5e"
+    },
+    {
+      "name": "vulkan",
+      "repository": "https://github.com/KhronosGroup/Vulkan-Loader.git",
+      "policy": "floating-ref-or-tag",
+      "previous": "6b45d76"
+    },
+    {
+      "name": "mujs",
+      "repository": "https://codeberg.org/ccxvii/mujs.git",
+      "policy": "default-tracking-branch",
+      "previous": "aab59f2"
+    },
+    {
+      "name": "vulkan-header",
+      "repository": "https://github.com/KhronosGroup/Vulkan-Headers.git",
+      "policy": "floating-ref-or-tag",
+      "previous": "c468508"
+    },
+    {
+      "name": "spirv-tools",
+      "repository": "https://github.com/KhronosGroup/SPIRV-Tools.git",
+      "policy": "floating-ref-or-tag",
+      "previous": "911d1ea"
+    },
+    {
+      "name": "glad",
+      "repository": "https://github.com/Dav1dde/glad.git",
+      "policy": "floating-ref-or-tag",
+      "previous": "0a7cf1a"
+    },
+    {
+      "name": "fast_float",
+      "repository": "https://github.com/fastfloat/fast_float.git",
+      "policy": "floating-ref-or-tag",
+      "previous": "166d2b3"
+    },
+    {
+      "name": "openal-soft",
+      "repository": "https://github.com/kcat/openal-soft.git",
+      "policy": "default-tracking-branch",
+      "previous": "96c394c"
+    },
+    {
+      "name": "shaderc",
+      "repository": "https://github.com/google/shaderc.git",
+      "policy": "floating-ref-or-tag",
+      "previous": "ba3e587"
+    },
+    {
+      "name": "libsdl2",
+      "repository": "https://github.com/libsdl-org/SDL.git",
+      "policy": "floating-ref-or-tag",
+      "previous": "8acf7cfc"
+    },
+    {
+      "name": "libzvbi",
+      "repository": "https://github.com/zapping-vbi/zvbi.git",
+      "policy": "floating-ref-or-tag",
+      "previous": null
+    },
+    {
+      "name": "libplacebo",
+      "repository": "https://github.com/haasn/libplacebo.git",
+      "policy": "explicit-pin",
+      "previous": "22ee762e8e0890fc54068beb670310f0edce7263"
+    },
+    {
+      "name": "libva",
+      "repository": "https://github.com/intel/libva.git",
+      "policy": "default-tracking-branch",
+      "previous": "f3fefce"
+    },
+    {
+      "name": "libaribcaption",
+      "repository": "https://github.com/xqq/libaribcaption.git",
+      "policy": "default-tracking-branch",
+      "previous": "37dde0f"
+    },
+    {
+      "name": "spirv-cross",
+      "repository": "https://github.com/KhronosGroup/SPIRV-Cross.git",
+      "policy": "floating-ref-or-tag",
+      "previous": "aa217ae"
+    },
+    {
+      "name": "nghttp3",
+      "repository": "https://github.com/ngtcp2/nghttp3.git",
+      "policy": "floating-ref-or-tag",
+      "previous": "d29ceea"
+    },
+    {
+      "name": "ngtcp2",
+      "repository": "https://github.com/ngtcp2/ngtcp2.git",
+      "policy": "floating-ref-or-tag",
+      "previous": "4822893"
+    },
+    {
+      "name": "libpsl",
+      "repository": "https://github.com/rockdaboot/libpsl.git",
+      "policy": "explicit-pin",
+      "previous": "aa3a80e18f25caf3916636c8668dcc0fff7c016d"
+    },
+    {
+      "name": "c-ares",
+      "repository": "https://github.com/c-ares/c-ares.git",
+      "policy": "floating-ref-or-tag",
+      "previous": "f4156c1"
+    },
+    {
+      "name": "nghttp2",
+      "repository": "https://github.com/nghttp2/nghttp2.git",
+      "policy": "default-tracking-branch",
+      "previous": "7e10fcf"
+    },
+    {
+      "name": "mpv",
+      "repository": "https://github.com/mpv-player/mpv.git",
+      "policy": "explicit-pin",
+      "previous": "654e9382c0bbccb09ccac348f792e9d378e9c7a9"
+    },
+    {
+      "name": "mpv-packaging",
+      "repository": "https://github.com/shinchiro/mpv-packaging.git",
+      "policy": "default-tracking-branch",
+      "previous": null
+    },
+    {
+      "name": "curl",
+      "repository": "https://github.com/curl/curl.git",
+      "policy": "explicit-pin",
+      "previous": "d4dc7d16c40a0d9e70f7858e645c7ab3997a38b0"
+    },
+    {
+      "name": "ffmpeg",
+      "repository": "https://github.com/FFmpeg/FFmpeg.git",
+      "policy": "explicit-pin",
+      "previous": "a234fc1130e6b17d550371dede849918202a303a"
+    },
+    {
+      "name": "svtav1",
+      "repository": "https://gitlab.com/AOMediaCodec/SVT-AV1.git",
+      "policy": "default-tracking-branch",
+      "previous": "3515359"
+    }
+  ]
+}

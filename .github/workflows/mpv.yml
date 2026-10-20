@@ -57,9 +57,50 @@ on:
       run_name:
         description: 'The name displayed in the list of workflow runs'
         required: false
+      baseline_only:
+        description: 'Recover the recorded .72 dependency baseline without building or publishing'
+        required: false
+        default: false
+        type: boolean
 
 jobs:
+  dependency_baseline:
+    name: Recover .72 dependency revisions
+    if: ${{ inputs.baseline_only == true }}
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/archlinux/archlinux:base-devel
+    permissions:
+      contents: read
+    steps:
+      - name: Install metadata tools
+        run: pacman -Sy --noconfirm --needed git python zstd
+      - uses: actions/checkout@v7
+      - name: Restore exact source cache used by .72
+        id: sources
+        uses: actions/cache/restore@v6.1.0
+        with:
+          path: ${{ github.workspace }}/mpv-winbuild-cmake/src_packages
+          key: source-2026-09-09-34393354351-1
+          fail-on-cache-miss: true
+      - name: Resolve baseline before any package update
+        env:
+          BASELINE_CACHE_HIT: ${{ steps.sources.outputs.cache-hit }}
+        run: |
+          test "$BASELINE_CACHE_HIT" = "true"
+          python scripts/recover-dependency-baseline.py \
+            mpv-winbuild-cmake/src_packages \
+            scripts/dependency-baseline-request.json \
+            dependency-baseline.json
+      - name: Upload exact baseline metadata
+        uses: actions/upload-artifact@v7
+        with:
+          name: dependency-baseline
+          path: dependency-baseline.json
+          if-no-files-found: error
+
   params:
+    if: ${{ inputs.baseline_only != true }}
     runs-on: ubuntu-latest
     outputs:
       sha: ${{ steps.script.outputs.sha }}
