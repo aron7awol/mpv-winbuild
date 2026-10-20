@@ -56,18 +56,6 @@ def main():
             "cached_head": cached_head, "cached_tracking_ref": tracking,
             "cached_tracking_sha": tracking_sha,
         })
-    # Fetch only to resolve immutable log IDs not already present in the cache.
-    # Floating HEADs fetched here never select the baseline.
-    for record in records:
-        directory = source / record["name"]
-        expected = record["expected"]
-        resolved = git(directory, "rev-parse", "--verify", expected + "^{commit}", check=False)
-        if resolved is None:
-            git(directory, "fetch", "--filter=tree:0", "--no-recurse-submodules", "origin")
-            resolved = git(directory, "rev-parse", "--verify", expected + "^{commit}")
-        assert re.fullmatch(r"[0-9a-f]{40}", resolved) and resolved.startswith(expected)
-        record["base"] = resolved
-        print(f"{record['name']} {resolved} [{record['method']}]", flush=True)
     result = {
         "baseline_release": "0.41.0.72", "baseline_run": request["previousRun"],
         "source_cache": request["sourceCache"],
@@ -75,6 +63,24 @@ def main():
         "request_log_sha256": request["previousLogSha256"],
         "packages": records,
     }
+    output.write_text(json.dumps(result, indent=2) + "\n")
+    # Fetch only to resolve immutable log IDs not already present in the cache.
+    # Floating HEADs fetched here never select the baseline. Some cached repos
+    # are shallow, so a normal fetch does not make the prior release reachable.
+    for record in records:
+        directory = source / record["name"]
+        expected = record["expected"]
+        resolved = git(directory, "rev-parse", "--verify", expected + "^{commit}", check=False)
+        if resolved is None:
+            shallow = git(directory, "rev-parse", "--is-shallow-repository") == "true"
+            git(directory, "fetch", *(["--unshallow"] if shallow else []),
+                "--filter=tree:0", "--no-recurse-submodules", "origin")
+            resolved = git(directory, "rev-parse", "--verify", expected + "^{commit}")
+        assert re.fullmatch(r"[0-9a-f]{40}", resolved) and resolved.startswith(expected)
+        record["base"] = resolved
+        output.write_text(json.dumps(result, indent=2) + "\n")
+        print(f"{record['name']} {resolved} [{record['method']}]", flush=True)
+    result["complete"] = True
     output.write_text(json.dumps(result, indent=2) + "\n")
     print(f"Recovered {len(records)} exact dependency/source bases; no build or publication.")
 

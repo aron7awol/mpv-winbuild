@@ -93,6 +93,7 @@ jobs:
             scripts/dependency-baseline-request.json \
             dependency-baseline.json
       - name: Upload exact baseline metadata
+        if: ${{ always() }}
         uses: actions/upload-artifact@v7
         with:
           name: dependency-baseline
