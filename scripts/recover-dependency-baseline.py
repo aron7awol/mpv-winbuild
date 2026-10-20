@@ -11,6 +11,7 @@ from pathlib import Path
 import re
 import subprocess
 import sys
+from dependency_source_state import source_state
 
 
 def git(directory, *args, check=True):
@@ -55,6 +56,7 @@ def main():
             "expected": expected, "method": method,
             "cached_head": cached_head, "cached_tracking_ref": tracking,
             "cached_tracking_sha": tracking_sha,
+            "cached_source_state": source_state(directory),
         })
     result = {
         "baseline_release": "0.41.0.72", "baseline_run": request["previousRun"],
@@ -64,6 +66,9 @@ def main():
         "packages": records,
     }
     output.write_text(json.dumps(result, indent=2) + "\n")
+    if os.environ.get("BASELINE_SNAPSHOT_ONLY") == "true":
+        print(f"Captured {len(records)} cached source/submodule states without fetching or modifying sources.")
+        return
     # Fetch only to resolve immutable log IDs not already present in the cache.
     # Floating HEADs fetched here never select the baseline. Some cached repos
     # are shallow, so a normal fetch does not make the prior release reachable.

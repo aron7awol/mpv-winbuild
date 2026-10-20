@@ -62,6 +62,11 @@ on:
         required: false
         default: false
         type: boolean
+      baseline_snapshot_only:
+        description: 'With baseline_only: inspect the exact cached sources without fetching or building'
+        required: false
+        default: false
+        type: boolean
 
 jobs:
   dependency_baseline:
@@ -86,6 +91,7 @@ jobs:
       - name: Resolve baseline before any package update
         env:
           BASELINE_CACHE_HIT: ${{ steps.sources.outputs.cache-hit }}
+          BASELINE_SNAPSHOT_ONLY: ${{ inputs.baseline_snapshot_only }}
         run: |
           test "$BASELINE_CACHE_HIT" = "true"
           python scripts/recover-dependency-baseline.py \
