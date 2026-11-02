@@ -43,6 +43,11 @@ on:
         required: false
         default: false
         type: boolean
+      bootstrap_clang:
+        description: 'Rebuild the pinned 64-bit Clang/Windows runtime after cache loss'
+        required: false
+        default: false
+        type: boolean
       release:
         description: "Publish a release"
         required: false
@@ -249,7 +254,7 @@ jobs:
         uses: actions/checkout@v7
         with:
           repository: aron7awol/mpv-winbuild-cmake
-          ref: 459f5a6351b4004897b0478c0e60fce053e2e347
+          ref: abb6f8342bb07f3168f14661c8c01fa0645bfafd
           path: mpv-winbuild-cmake
           fetch-depth: 0
       - name: Prepare
@@ -350,6 +355,20 @@ jobs:
           path: ${{ github.workspace }}/mpv-winbuild-cmake/build${{ matrix.bit }}
           key: ${{ env.build_restore_key }}
 
+      - name: Rebuild pinned Clang and Windows runtime
+        if: ${{ inputs.bootstrap_clang }}
+        shell: bash
+        run: |
+          test '${{ inputs.compiler }}' = clang
+          test '${{ matrix.bit }}' = 64
+          bash scripts/bootstrap-clang.sh '${{ matrix.bit }}'
+      - name: Upload toolchain recovery evidence
+        if: ${{ always() && hashFiles(format('mpv-winbuild-cmake/build{0}/toolchain-bootstrap.json', matrix.bit)) != '' }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: toolchain-bootstrap-${{ matrix.bit }}
+          path: mpv-winbuild-cmake/build${{ matrix.bit }}/toolchain-bootstrap.json
+          if-no-files-found: error
       - name: Validate Clang build cache
         if: ${{ inputs.compiler == 'clang' }}
         shell: bash

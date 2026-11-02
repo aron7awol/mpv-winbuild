@@ -75,6 +75,8 @@ build() {
         ninja -C $buildroot/build$bit rustup
     fi
     ninja -C $buildroot/build$bit update || exit 1
+    python "$gitdir/../scripts/restore-source-data.py" "$srcdir" \
+        "$gitdir/../scripts/dependency-source-baseline.json" || exit 1
     python "$gitdir/../scripts/dependency_source_state.py" "$srcdir" \
         "$gitdir/../scripts/dependency-source-baseline.json" \
         "$buildroot/build$bit/dependency-source-data.json" || exit 1

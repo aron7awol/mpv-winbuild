@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "version": "22.1.8",
+  "llvm_commit": "ca7933e47d3a3451d81e72ac174dcb5aa28b59d1",
+  "url": "https://github.com/llvm/llvm-project/releases/download/llvmorg-22.1.8/LLVM-22.1.8-Linux-X64.tar.xz",
+  "sha256": "df0e1ecf16caf3489a272a5eea4eec9b0d82878f6477fa309504f918a0006384",
+  "mingw_commit": "e51e30769e86aad6a2adee37535187f4981b279a",
+  "cppwinrt_commit": "d6cff316a991152071038668fb586a8b5ab1d51f",
+  "windows_metadata_commit": "132074d9831167eb7d5f2b73e8cc4420a0e937c0",
+  "provenance": "LLVM release tag and official asset digest verified through upstream GitHub API. LLVM source matches the .75 compiler log. SDK IDs are newly locked at the first retained engine-build cutoff (2026-07-28), not proven IDs from the expired cache. Rebuilt binaries require validation."
+}
