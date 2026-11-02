@@ -355,6 +355,16 @@ jobs:
           path: ${{ github.workspace }}/mpv-winbuild-cmake/build${{ matrix.bit }}
           key: ${{ env.build_restore_key }}
 
+      - name: Apply reviewed CMake patches
+        shell: bash
+        run: |
+          cd mpv-winbuild-cmake
+          for patch in ../patch/*.patch; do
+            if ! git am --3way "$patch"; then
+              git am --abort
+              exit 1
+            fi
+          done
       - name: Rebuild pinned Clang and Windows runtime
         if: ${{ inputs.bootstrap_clang }}
         shell: bash
@@ -475,14 +485,6 @@ jobs:
         run: |
           chmod +x build.sh
           cd mpv-winbuild-cmake
-          if [[ "$(ls -A ../patch/*.patch)" ]]; then
-            for patch in ../patch/*.patch ; do
-              if ! git am --3way "$patch"; then
-                git am --abort
-                exit 1
-              fi
-            done
-          fi
           if [ "${{ matrix.lgpl }}" = "true" ]; then
             git am --3way ../compile-lgpl-libmpv.patch
           fi
@@ -511,7 +513,12 @@ jobs:
       - name: Collect logs
         if: ${{ always() }}
         run: |
-          sudo 7z a logs.7z $(find mpv-winbuild-cmake/build${{ matrix.bit }} -type f -iname "*-*.log" -or -wholename "*/ffbuild/config.log")
+          mapfile -d '' build_logs < <(find 'mpv-winbuild-cmake/build${{ matrix.bit }}' -type f \( -iname '*-*.log' -o -wholename '*/ffbuild/config.log' \) -print0 2>/dev/null || true)
+          if [ "${#build_logs[@]}" -eq 0 ]; then
+            printf 'Build failed before compiler logs were created; inspect the Actions job log.\n' > no-build-logs.txt
+            build_logs=(no-build-logs.txt)
+          fi
+          sudo 7z a logs.7z "${build_logs[@]}"
       - name: upload logs
         uses: actions/upload-artifact@v7
         if: ${{ always() }}
