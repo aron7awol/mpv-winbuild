@@ -22,6 +22,8 @@ else
   rm -- "$archive"
 fi
 "$clang_root/bin/clang" --version
+"$clang_root/bin/ld.lld" --version
+"$clang_root/bin/llvm-ar" --version
 test "$("$clang_root/bin/clang" -dumpversion)" = "$version"
 cd "$buildroot"
 cmake -Wno-dev --fresh -G Ninja -S . -B build64 \
