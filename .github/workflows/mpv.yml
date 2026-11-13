@@ -254,7 +254,7 @@ jobs:
         uses: actions/checkout@v7
         with:
           repository: aron7awol/mpv-winbuild-cmake
-          ref: c06e5b210fbdb589c404822b59b383c8e31d5052
+          ref: f386cbaf70f85f268288886d3faea1af03f41a93
           path: mpv-winbuild-cmake
           fetch-depth: 0
       - name: Prepare
@@ -493,8 +493,8 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          test "$(git -C mpv-winbuild-cmake/src_packages/mpv rev-parse HEAD^{tree})" = "f365440bc9dc8981092883d44ca150a9ac666f33"
-          test "$(git -C mpv-winbuild-cmake/src_packages/libplacebo rev-parse HEAD^{tree})" = "92aa5c7d89b18d09cb26cf234deb1d7a5b372f0f"
+          test "$(git -C mpv-winbuild-cmake/src_packages/mpv rev-parse HEAD^{tree})" = "3f37a33254d24ed7f5857e51de7569428fc7b367"
+          test "$(git -C mpv-winbuild-cmake/src_packages/libplacebo rev-parse HEAD^{tree})" = "3da47665c03387c076d2607e157ce34526e9659e"
           test "$(git -C mpv-winbuild-cmake/src_packages/ffmpeg rev-parse HEAD)" = "a234fc1130e6b17d550371dede849918202a303a"
           for package in mpv libplacebo ffmpeg; do
             printf '%s commit=' "$package"
