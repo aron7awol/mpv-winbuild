@@ -493,7 +493,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          test "$(git -C mpv-winbuild-cmake/src_packages/mpv rev-parse HEAD^{tree})" = "36f2d5df811c5e8f12fb0e98b6a43da17306904c"
+          test "$(git -C mpv-winbuild-cmake/src_packages/mpv rev-parse HEAD^{tree})" = "f365440bc9dc8981092883d44ca150a9ac666f33"
           test "$(git -C mpv-winbuild-cmake/src_packages/libplacebo rev-parse HEAD^{tree})" = "92aa5c7d89b18d09cb26cf234deb1d7a5b372f0f"
           test "$(git -C mpv-winbuild-cmake/src_packages/ffmpeg rev-parse HEAD)" = "a234fc1130e6b17d550371dede849918202a303a"
           for package in mpv libplacebo ffmpeg; do
